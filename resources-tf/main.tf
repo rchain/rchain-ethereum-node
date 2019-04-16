@@ -1,4 +1,4 @@
-variable "gcp_zone" { default = "us-central1-a" }
+variable "gcp_zone" { default = "us-east4-b" }
 variable "rchain_sre_git_crypt_key_file" {}
 
 provider "google" {
