@@ -11,6 +11,7 @@ resource "google_compute_firewall" "fw_rpc" {
     protocol = "tcp"
     ports = [ 8545, 8546 ]
   }
+  disabled = "true"
 }
 
 resource "google_compute_firewall" "fw_p2p" {
