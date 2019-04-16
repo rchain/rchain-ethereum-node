@@ -1,0 +1,45 @@
+#!/bin/bash
+set -e -o pipefail
+
+while :; do
+	_hostname="$(hostname -f)"
+	if [[ $_hostname == *.* && $_hostname != *.internal ]]; then
+		break
+	fi
+	systemctl restart systemd-networkd
+	echo "Waiting for FQDN..."
+	sleep 10
+done
+
+# Due to the issue https://github.com/oetiker/rrdtool-1.x/issues/794
+# present in librrd 1.7.0, current version in Ubuntu cosmic/18.10,
+# collectd creates files with permissions 0066.
+apt install -y librrd8
+librrd_ver="$(dpkg-query -W -f '${Version}' librrd8)"
+if dpkg --compare-versions $librrd_ver lt '1.7.1'; then
+	librrd_url='http://us-central1.gce.archive.ubuntu.com/ubuntu/pool/main/r/rrdtool/librrd8_1.7.1-1_amd64.deb'
+	librrd_deb="$(basename "$librrd_url")"
+	pushd /tmp
+	curl -fsSLO "$librrd_url"
+	apt install -y ./$librrd_deb
+	rm $librrd_deb
+	popd
+fi
+
+apt install -y --no-install-recommends \
+    apt-transport-https gnupg2 software-properties-common \
+    collectd liboping0 jq dnsutils \
+	bpfcc-tools iotop \
+	coreutils tree
+
+add-apt-repository -y ppa:ethereum/ethereum
+apt update
+apt install ethereum
+
+install -C -m644 collectd.conf -t /etc/collectd/
+systemctl restart collectd
+
+if ! getent passwd ether >/dev/null; then
+	useradd -rM -s /bin/false -d /home/ether ether
+	install -m700 -o ether -d /home/ether
+fi
