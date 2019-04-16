@@ -14,7 +14,7 @@ resource "google_dns_record_set" "dns_record" {
 resource "google_compute_disk" "data_disk" {
   name = "ethereum-node-data"
   type = "pd-standard"
-  size = 4096
+  size = 500
 }
 
 resource "google_compute_instance" "host" {
