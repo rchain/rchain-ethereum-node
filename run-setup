@@ -44,7 +44,7 @@ if ! getent passwd ether >/dev/null; then
 	install -m700 -o ether -d /home/ether
 fi
 
-if ! blkid /dev/disk/by-id/google-ethereum-node-data; then
+if ! blkid /dev/disk/by-id/google-ethereum-node-data >/dev/null; then
 	mkfs.ext4 -q /dev/disk/by-id/google-ethereum-node-data
 fi
 
