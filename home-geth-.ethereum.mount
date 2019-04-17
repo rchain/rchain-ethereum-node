@@ -1,0 +1,10 @@
+[Unit]
+After=local-fs.target
+
+[Mount]
+What=/dev/disk/by-id/google-ethereum-node-data
+Where=/home/ether/.ethereum
+Options=noatime
+
+[Install]
+WantedBy=multi-user.target

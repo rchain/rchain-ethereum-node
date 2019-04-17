@@ -44,6 +44,16 @@ if ! getent passwd ether >/dev/null; then
 	install -m700 -o ether -d /home/ether
 fi
 
+if ! blkid /dev/disk/by-id/google-ethereum-node-data; then
+	mkfs.ext4 -q /dev/disk/by-id/google-ethereum-node-data
+fi
+
+systemctl link $PWD/home-geth-.ethereum.mount
+systemctl daemon-reload
+systemctl enable --now home-geth-.ethereum.mount
+
+chown ether. /home/ether/.ethereum
+
 systemctl link $PWD/geth.service
 systemctl daemon-reload
 systemctl enable --now geth
