@@ -5,7 +5,9 @@ After=network.target
 [Service]
 User=ether
 Group=ether
-ExecStart=/usr/bin/geth --nousb --rpc --ws
+ExecStart=/usr/bin/geth --nousb \
+	--rpc --rpcapi eth,web3 --rpcvhosts '*' \
+	--ws --wsapi eth,web3 --wsorigins '*'
 TimeoutStopSec=5m
 Restart=on-failure
 RestartSec=5
