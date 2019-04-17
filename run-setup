@@ -43,3 +43,7 @@ if ! getent passwd ether >/dev/null; then
 	useradd -rM -s /bin/false -d /home/ether ether
 	install -m700 -o ether -d /home/ether
 fi
+
+systemctl link $PWD/geth.service
+systemctl daemon-reload
+systemctl enable --now geth

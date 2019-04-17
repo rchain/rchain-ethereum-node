@@ -1,0 +1,14 @@
+[Unit]
+Description=Go Ethereum Node
+After=network.target
+
+[Service]
+User=ether
+Group=ether
+ExecStart=/usr/bin/geth --nousb
+TimeoutStopSec=5m
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
