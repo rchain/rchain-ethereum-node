@@ -48,9 +48,9 @@ if ! blkid /dev/disk/by-id/google-ethereum-node-data >/dev/null; then
 	mkfs.ext4 -q /dev/disk/by-id/google-ethereum-node-data
 fi
 
-systemctl link $PWD/home-geth-.ethereum.mount
+systemctl link $PWD/home-ether-.ethereum.mount
 systemctl daemon-reload
-systemctl enable --now home-geth-.ethereum.mount
+systemctl enable --now home-ether-.ethereum.mount
 
 chown ether. /home/ether/.ethereum
 
