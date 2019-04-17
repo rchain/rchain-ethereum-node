@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=ether
 Group=ether
-ExecStart=/usr/bin/geth --nousb
+ExecStart=/usr/bin/geth --nousb --rpc --ws
 TimeoutStopSec=5m
 Restart=on-failure
 RestartSec=5
