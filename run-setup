@@ -34,7 +34,7 @@ apt install -y --no-install-recommends \
 
 add-apt-repository -y ppa:ethereum/ethereum
 apt update
-apt install ethereum
+apt install -y ethereum
 
 install -C -m644 collectd.conf -t /etc/collectd/
 systemctl restart collectd
