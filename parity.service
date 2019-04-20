@@ -12,7 +12,8 @@ ExecStart=/usr/local/bin/parity \
 	--no-secretstore \
 	--no-color \
 	--jsonrpc-hosts=all \
-	--ws-hosts=all
+	--ws-hosts=all \
+	--cache-size=4096
 TimeoutStopSec=2m
 Restart=on-failure
 RestartSec=5
