@@ -10,7 +10,9 @@ ExecStart=/usr/local/bin/parity \
 	--no-hardware-wallets \
 	--accounts-refresh=0 \
 	--no-secretstore \
-	--no-color
+	--no-color \
+	--jsonrpc-hosts=all \
+	--ws-hosts=all
 TimeoutStopSec=2m
 Restart=on-failure
 RestartSec=5
