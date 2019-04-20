@@ -41,18 +41,19 @@ systemctl restart collectd
 
 if ! getent passwd ether >/dev/null; then
 	useradd -rM -s /bin/false -d /home/ether ether
-	install -m700 -o ether -d /home/ether
+	install -m700 -d /home/ether
 fi
 
 if ! blkid /dev/disk/by-id/google-ethereum-node-data >/dev/null; then
 	mkfs.ext4 -q /dev/disk/by-id/google-ethereum-node-data
 fi
 
-systemctl link $PWD/home-ether-.ethereum.mount
+systemctl link $PWD/home-ether.mount
 systemctl daemon-reload
-systemctl enable --now home-ether-.ethereum.mount
+systemctl enable --now home-ether.mount
 
-chown ether. /home/ether/.ethereum
+chmod 700 /home/ether
+chown ether. /home/ether
 
 systemctl link $PWD/geth.service
 systemctl daemon-reload
