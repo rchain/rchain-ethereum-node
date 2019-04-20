@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e -o pipefail
 
+PARITY_VERS='2.5.0'
+
 while :; do
 	_hostname="$(hostname -f)"
 	if [[ $_hostname == *.* && $_hostname != *.internal ]]; then
@@ -32,10 +34,6 @@ apt install -y --no-install-recommends \
 	bpfcc-tools iotop \
 	coreutils tree
 
-add-apt-repository -y ppa:ethereum/ethereum
-apt update
-apt install -y ethereum
-
 install -C -m644 collectd.conf -t /etc/collectd/
 systemctl restart collectd
 
@@ -55,6 +53,10 @@ systemctl enable --now home-ether.mount
 chmod 700 /home/ether
 chown ether. /home/ether
 
-systemctl link $PWD/geth.service
+curl -fsSL -z /usr/local/bin/parity -o /usr/local/bin/parity \
+	"https://releases.parity.io/ethereum/v$PARITY_VERS/x86_64-unknown-linux-gnu/parity"
+chmod +x /usr/local/bin/parity
+
+systemctl link $PWD/parity.service
 systemctl daemon-reload
-systemctl enable --now geth
+systemctl enable --now parity

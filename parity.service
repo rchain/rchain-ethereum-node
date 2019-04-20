@@ -1,0 +1,19 @@
+[Unit]
+Description=Parity Ethereum Node
+After=network.target
+
+[Service]
+User=ether
+Group=ether
+ExecStart=/usr/local/bin/parity \
+	--no-download \
+	--no-hardware-wallets \
+	--accounts-refresh=0 \
+	--no-secretstore \
+	--no-color
+TimeoutStopSec=2m
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
