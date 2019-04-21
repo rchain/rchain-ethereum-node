@@ -5,15 +5,7 @@ After=network.target
 [Service]
 User=ether
 Group=ether
-ExecStart=/usr/local/bin/parity \
-	--no-download \
-	--no-hardware-wallets \
-	--accounts-refresh=0 \
-	--no-secretstore \
-	--no-color \
-	--jsonrpc-hosts=all \
-	--ws-hosts=all \
-	--cache-size=4096
+ExecStart=/usr/local/bin/start-parity
 TimeoutStopSec=2m
 Restart=on-failure
 RestartSec=5

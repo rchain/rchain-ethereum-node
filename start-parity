@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e -o pipefail
+
+rc=0
+ip="$(curl -fsS -HMetadata-Flavor:Google http://metadata/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip)" || rc=$?
+if (( rc )); then
+	nat_arg=auto
+else
+	nat_arg=extip:$ip
+fi
+
+set -x
+exec /usr/local/bin/parity \
+	--no-download \
+	--no-hardware-wallets \
+	--accounts-refresh=0 \
+	--no-secretstore \
+	--no-color \
+	--jsonrpc-hosts=all \
+	--ws-hosts=all \
+	--cache-size=4096 \
+	--nat=extip:$ip \
+	"$@"

@@ -42,6 +42,8 @@ curl -fsSL -z /usr/local/bin/parity -o /usr/local/bin/parity \
 	"https://releases.parity.io/ethereum/v$PARITY_VERS/x86_64-unknown-linux-gnu/parity"
 chmod +x /usr/local/bin/parity
 
+install -C -m755 start-parity -t /usr/local/bin/
+
 systemctl link $PWD/parity.service
 systemctl daemon-reload
 systemctl enable --now parity
