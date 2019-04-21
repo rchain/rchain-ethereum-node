@@ -17,7 +17,7 @@ apt install -y --no-install-recommends \
     apt-transport-https gnupg2 software-properties-common \
     collectd liboping0 \
 	bpfcc-tools iotop \
-	coreutils psmisc less vim rsync screen tree jq dnsutils
+	coreutils psmisc less vim rsync screen tree jq dnsutils tcpdump
 
 install -C -m644 collectd.conf -t /etc/collectd/
 systemctl restart collectd
