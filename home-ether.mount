@@ -1,5 +1,4 @@
 [Unit]
-After=local-fs.target
 
 [Mount]
 What=/dev/disk/by-id/google-ethereum-node-data
