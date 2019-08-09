@@ -20,4 +20,6 @@ exec /usr/local/bin/parity \
 	--ws-hosts=all \
 	--cache-size=2048 \
 	--nat=extip:$ip \
+	--pruning=fast \
+	--pruning-history=$((2*31*24*3600/15)) \
 	"$@"
